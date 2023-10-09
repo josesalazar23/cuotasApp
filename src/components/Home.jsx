@@ -19,14 +19,6 @@ const Home = () => {
   const [mostrarInicio, setMostrarInicio] = useState(true);
   const [refreshCuotas, setRefreshCuotas] = useState(false);
 
-
-  // const [currentDate, setCurrentDate] = useState(new Date());
-  // const [error, setError] = useState('');
-  // const [selectedDay, setSelectedDay] = useState('');
-  // const [editIndex, setEditIndex] = useState(-1); // Índice de la fecha en edición (-1 si no hay edición)
-  // const [editedDate, setEditedDate] = useState(''); // Fecha en edición
-  // const [cuotasStates, setCuotasStates] = useState([]); // Estado para las cuotas
-
   const handleAddClick = () => {
     // Verifica que los tres campos tengan valores y que totalPorcentaje sea mayor o igual a 30
     if (totalPersonas !== '' && totalImporte !== '' && totalPorcentaje >= 30) {
@@ -54,7 +46,7 @@ const Home = () => {
             setTotalImporte={setTotalImporte}
             totalPorcentaje={totalPorcentaje}
             setTotalPorcentaje={setTotalPorcentaje}
-            onAddData={handleAddClick}
+            handleAddClick={handleAddClick}
           />
         </div>
       )}
@@ -62,28 +54,15 @@ const Home = () => {
       {showCuotas && totalPersonas !== '' && totalImporte !== '' && totalPorcentaje >= 30 && (
         <div>
           <DateApp
-            totalPersonas={totalPersonas}
-            // setTotalPersonas={setTotalPersonas}
             totalImporte={totalImporte}
-            // setTotalImporte={setTotalImporte}
-            setTotalPorcentaje={setTotalPorcentaje}
-            onAddData={handleAddClick}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
             selectedMonth={selectedMonth}
             setSelectedMonth={setSelectedMonth}
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
-            daysInMonth={daysInMonth}
-            setDaysInMonth={setDaysInMonth}
-            newDateCount={newDateCount}
-            setNewDateCount={setNewDateCount}
             paymentDates={paymentDates}
             setPaymentDates={setPaymentDates}
             setShowCuotas={setShowCuotas}
             totalPorcentaje={totalPorcentaje}
-            refreshCuotas={refreshCuotas}
-            setRefreshCuotas={setRefreshCuotas}
           />
         </div>
       )}
@@ -97,8 +76,6 @@ const Home = () => {
             totalPorcentaje={totalPorcentaje}
             setTotalPorcentaje={setTotalPorcentaje}
             showCuotas={showCuotas}
-            mostrarInputAdicional={mostrarInputAdicional}
-            setMostrarInputAdicional={setMostrarInputAdicional}
             refreshCuotas={refreshCuotas}
             setRefreshCuotas={setRefreshCuotas}
           />

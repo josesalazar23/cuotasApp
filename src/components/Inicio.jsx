@@ -7,7 +7,7 @@ const Inicio = ({
   setTotalImporte,
   totalPorcentaje,
   setTotalPorcentaje,
-  onAddData,
+  handleAddClick,
 }) => {
 
   const handleInputChange = (e, setterFunction, minValue = null) => {
@@ -29,7 +29,7 @@ const Inicio = ({
   const handleAddDataClick = () => {
     if (totalPersonas !== '' && totalImporte !== '' && totalPorcentaje !== '') {
       // Si se han ingresado valores en todos los campos, oculta los campos
-      onAddData(); // Llama a la función para continuar con la lógica deseada
+      handleAddClick(); // Llama a la función para continuar con la lógica deseada
     }
   };
 
@@ -68,7 +68,6 @@ const Inicio = ({
             onChange={(e) => handleInputChange(e, setTotalPorcentaje, 30)}
           />
         </div>
-        {totalPorcentaje}
         <div className='btnContainer'>
           <button className="btnAñadir" onClick={handleAddDataClick}>Añadir Data</button>
         </div>

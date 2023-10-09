@@ -7,7 +7,9 @@ const Cuotas = ({
   totalPorcentaje,
   setTotalPorcentaje,
   showCuotas,
-  setMostrarInputAdicional
+  refreshCuotas,
+  setRefreshCuotas,
+
 }) => {
   const [personasAdicionales, setPersonasAdicionales] = useState(0);
   const [cuotasStates, setCuotasStates] = useState([]);
@@ -56,7 +58,6 @@ const Cuotas = ({
     const nuevasCuotas = paymentDates.map(() => nuevoTotal / paymentDates.length);
 
     setCuotasStates((prevState) => [...prevState, nuevasCuotas]);
-    setMostrarInputAdicional(true);
   };
 
   return (
@@ -95,7 +96,7 @@ const Cuotas = ({
             </tbody>
           </table>
           {showCuotas && (
-            <button onClick={handleMasPersonasClick}>Más Personas</button>
+            <button className="btnDate" onClick={handleMasPersonasClick}>Más Personas</button>
           )}
         </div>
       </div>

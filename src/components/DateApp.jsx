@@ -11,14 +11,13 @@ const DateApp = ({
   paymentDates,
   setPaymentDates,
   setShowCuotas,
-  totalPorcentaje,
 }) => {
   const maxDateCount = 4; // Máximo de cuotas
-  const currentDate = new Date();
+  const currentDate = (new Date());
   const [error, setError] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
-  const [cuotas, setCuotas] = useState([]);
+
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -31,17 +30,23 @@ const DateApp = ({
     setterFunction(e.target.value);
   };
 
+  const getDaysInMonth = (year, month) => {
+    return new Date(year, month, 0).getDate();
+  };
+
+  const calculateCuotas = (dates) => {
+    const totalCuotas = totalImporte / dates.length;
+    return Array.from({ length: totalPersonas }, () =>
+      Array.from({ length: dates.length }, () => totalCuotas)
+    );
+  };
+
   useEffect(() => {
-    if (totalPorcentaje >= 30) {
-      const cuota1 = (totalPorcentaje / 100) * totalImporte;
-      console.log("Valor de la primera cuota:", cuota1)
-      const cuotasRestantes = (totalImporte - cuota1) / (maxDateCount - 1);
-
-      const cuotasArray = [cuota1, ...Array(maxDateCount - 2).fill(cuotasRestantes)];
-
-      setCuotas(cuotasArray);
+    if (totalImporte > 0 && paymentDates.size > 0) {
+      const initialCuotas = calculateCuotas([...paymentDates]);
+      // setCuotasStates(initialCuotas);
     }
-  }, [totalPorcentaje, totalImporte]);
+  }, [totalImporte, paymentDates]);
 
   const handleValidateDateClick = () => {
     if (selectedDay && selectedMonth && selectedYear) {
@@ -58,6 +63,7 @@ const DateApp = ({
           setShowCuotas(true);
           setPaymentDates(new Set(updatedDates));
           setEditIndex(-1);
+          // setEditedDate('');
         } else if (
           paymentDates.size < maxDateCount &&
           ![...paymentDates].includes(formatDate(selectedDate))
@@ -73,6 +79,7 @@ const DateApp = ({
         setSelectedMonth('');
         setSelectedYear('');
         setEditIndex(-1);
+        // setEditedDate('');
         setShowCuotas(true);
       } else {
         setError('La fecha seleccionada es anterior a la fecha actual.');
@@ -100,6 +107,29 @@ const DateApp = ({
     }
   };
 
+
+  const handleEditDateChange = (e, date, index, field) => {
+    const updatedDates = [...paymentDates];
+    const dateParts = date.split('-');
+    const newDate = new Date(
+      parseInt(dateParts[0], 10),
+      parseInt(dateParts[1], 10) - 1,
+      parseInt(dateParts[2], 10)
+    );
+  
+    if (field === 'day') {
+      newDate.setDate(parseInt(e.target.value, 10));
+    } else if (field === 'month') {
+      newDate.setMonth(parseInt(e.target.value, 10) - 1);
+    } else if (field === 'year') {
+      newDate.setFullYear(parseInt(e.target.value, 10));
+    }
+  
+    updatedDates[index] = formatDate(newDate);
+    setPaymentDates(new Set(updatedDates));
+  };
+  
+
   return (
     <div>
       <DateSelector
@@ -124,9 +154,9 @@ const DateApp = ({
                   selectedDay={date.split('-')[2]}
                   selectedMonth={date.split('-')[1]}
                   selectedYear={date.split('-')[0]}
-                  onDayChange={(e) => handleInputChange(e, setSelectedDay)}
-                  onMonthChange={(e) => handleInputChange(e, setSelectedMonth)}
-                  onYearChange={(e) => handleInputChange(e, setSelectedYear)}
+                  onDayChange={(e) => handleEditDateChange(e, date, index, 'day')}
+                  onMonthChange={(e) => handleEditDateChange(e, date, index, 'month')}
+                  onYearChange={(e) => handleEditDateChange(e, date, index, 'year')}
                 />
               </li>
             ))}
@@ -143,3 +173,4 @@ const DateApp = ({
 };
 
 export default DateApp;
+
