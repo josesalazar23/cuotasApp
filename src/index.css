@@ -2,14 +2,25 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87); /* Cambiado a color de texto negro */
-  background-color: #181717c9; 
+  color: rgba(255, 255, 255, 0.87);
+  background: rgb(28, 25, 24);
+  background: linear-gradient(
+    300deg,
+    #4c453beb 100%
+  );
+ 
 }
 
 ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
 }
 
 p {
@@ -21,8 +32,8 @@ h2 {
   margin: 0;
 }
 
-th {
-  font-size: 20px;
+h4 {
+  margin: 10px;
 }
 
 
@@ -31,187 +42,64 @@ th {
 .paymentApp {
   display: flex;
   flex-direction: column;
-  margin: 50px auto;
-  padding: 30px;
+  margin: 20px auto;
+  padding: 20px;
   text-align: start;
-  width: 90%;
+  width: 80%;
   background-color: #3d3b3bc2;
   border: 1px solid #ec6521;
   border-radius: 20px;
   box-shadow: 0px 0px 10px #ec6521;
 }
 
-/* Styles in inicio */
-
-/* Estilos para el contenedor principal */
-.containerInitialApp {
-  display: flex;
-  flex-direction: row; /* Cambia la dirección a columna para alinear verticalmente */
-  align-items: center;
-  height: 30vh;
-  width: 50%;
-}
-
-/* Estilos para el contenedor de campos de entrada */
 .inicio {
   display: flex;
-  flex-direction: row; /* Cambia la dirección a columna para alinear verticalmente */
-  align-items: center; /* Centra horizontalmente los elementos */
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
 }
 
-/* Estilos para las etiquetas */
 .label {
-  font-size: 16px;
+  font-size: 12px;
   display: block;
 }
 
-/* Estilos para los campos de entrada */
 .input-number {
   text-align: center;
   width: 40%;
   height: 40px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-/* Estilos para el botón */
 .btnAñadir {
   width: 150px;
   height: 40px;
-  font-size: 16px;
+  font-size: 12px;
   background-color: #ec6521;
   margin-top: 25px;
+  border-radius: 10px;
 }
 
-
-/* .inicio {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0 200px;
+.homeTextos {
+  margin-bottom: 10px;
 }
 
-.btnContainer {
-  padding: 20px 10px;
+.orange-text {
+  color:  #ec6521;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.btnAñadir {
-  background-color: #ec6521;
-  width: 100%;
-  height: 30px;
-  border-radius: 20px;
-}
-
-
-
-
-.containerinicio {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px; /* Espacio entre los grupos de input */
-
-
-
-
-
-
-
-
-
-.chargesContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en una nueva línea si no caben en el ancho disponible */
-}
-
-.charge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 5px; /* Espacio entre cada elemento de pago */
-}
-
-.chargesContainer h3 {
-  margin-right: 0px; /* Ajusta el valor según tu preferencia */
-}
-
-
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 4fr; /* Divide el contenedor en dos columnas de igual tamaño */
-  gap: 10px; /* Espacio entre los fondos rojo y verde */
-}
-
-.box {
-  padding: 5px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.red {
-  background-color: red;
-}
-
-.box-red {
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: red;
-}
-
-.inputWidth {
-  width: 50%;
-}
-.green {
-  background-color: green;
-  color: white; /* Texto blanco en fondo verde para mayor visibilidad */
-}
-
-.inputs input {
-
-  width: 40px; /* Ajusta el ancho según tu preferencia */
-  text-align: center;
-
-}
-
-.small-select {
-  width: 70px; /* Ancho más pequeño */
-  margin-right: 10px; /* Espacio entre los selects e input */
-  font-size: 14px; /* Tamaño de fuente más pequeño */
-}
-
-/* Estilo adicional para el select de mes */
-.small-select[name="selectMonth"] {
-  width: 40px; /* Ancho aún más pequeño para el mes */
-}
-
-.dateRange {
-  padding-bottom: 10px;
+.inline-text {
+  display: inline;
+  margin-right: 10px;
 }
 
 
 /* Styles in dateApp */
-
 .btnDate {
   background-color: #ec6521;
   width: 10%;
@@ -219,7 +107,7 @@ th {
   border-radius: 10px;
   margin-top: 20px;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 /* Styles in dateSelector */
@@ -230,22 +118,13 @@ th {
 
 .date-select {
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc; 
+  font-size: 12px;
+  border: 1px solid #ccc;
   border-radius: 5px;
   width: 5%;
 }
 
-
-
-
-
-
-
-
 /* Styles in cuotas */
-
-
 .cuotas-table {
   border-collapse: collapse;
   width: 100%;
@@ -255,36 +134,12 @@ th {
 .cuotas-table td {
   padding: 8px;
   text-align: left;
-  border: 1px solid #ddd; /* Agrega bordes a las celdas */
+  border: 1px solid #ddd;
 }
 
 .cuotas-table th {
-  background-color: green;
+  font-size: 12px;
   color: white;
-}
-
-.cuotas-row:nth-child(even) td {
-  background-color: lightgreen;
-}
-
-.cuotas-row:nth-child(odd) td {
-  background-color: limegreen;
-}
-
-.contenedorResultado {
-  display: flex;
-  flex-direction: row; /* Por defecto, los elementos se mostrarán uno al lado del otro en fila */
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: flex-start; /* Alinea el contenido a la izquierda */
-}
-
-
-
-
-/* Agrega estos estilos CSS a tu archivo de estilos o componente CSS */
-.contenedorResultado {
-  display: flex;
-  align-items: center;
 }
 
 .cuotas-table {
@@ -295,51 +150,36 @@ th {
 
 .cuotas-table th,
 .cuotas-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
   text-align: center;
 }
 
 .cuotas-table input {
   width: 50%;
-
   text-align: center;
 }
-
 
 .input-personas {
   width: 50px !important;
 }
 
-
-
-
-
-
-
-/* estilos para la tablaa */
-
+/* estilos para la tabla */
 .cuotas-table {
   background-color: transparent;
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .cuotas-table th, .cuotas-table td {
-  background-color: rgba(14, 14, 14, 0.096);
+  background-color: rgba(14, 14, 14, 0.234);
   border: 1px solid transparent;
-  padding: 8px; 
+  padding: 10px;
 }
-
-
 
 .cuotas-table tbody tr:nth-child(odd) {
-  background-color: rgba(14, 14, 14, 0.096); 
+  background-color: rgba(14, 14, 14, 0.096);
 }
-
-
-
 
 
 

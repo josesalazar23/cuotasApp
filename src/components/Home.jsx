@@ -1,64 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setTotalPersonas,
+  setTotalImporte,
+  setTotalPorcentaje,
+  setSelectedMonth,
+  setSelectedYear,
+  setShowTable,
+  setMostrarInicio,
+  setError,
+  setSelectedDay,
+  setEditIndex,
+  setCuotasStates,
+  setPorcentajeReduccion,
+} from '../reducers/payment/paymentSlice';
+
 import DateApp from './DateApp';
 import Inicio from './Inicio';
 import Cuotas from './Cuotas';
 
 const Home = () => {
-  const [totalPersonas, setTotalPersonas] = useState('');
-  const [totalImporte, setTotalImporte] = useState('');
-  const [totalPorcentaje, setTotalPorcentaje] = useState(30);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState(1);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [daysInMonth, setDaysInMonth] = useState([]);
-  const [newDateCount, setNewDateCount] = useState(1);
+  const dispatch = useDispatch();
+  const mostrarInicio = useSelector((state) => state.payment.mostrarInicio);
+  const showTable = useSelector((state) => state.payment.showTable);
   const [paymentDates, setPaymentDates] = useState(new Set());
-  const [showTable, setShowTable] = useState(false);
-  const [mostrarInicio, setMostrarInicio] = useState(true);
-  const [rows, setRows] = useState([]);
 
-  const handleAddClick = () => {
-    // Verifica que los tres campos tengan valores y que totalPorcentaje sea mayor o igual a 30
-    if (totalPersonas !== '' && totalImporte !== '' && totalPorcentaje >= 30) {
-      setShowTable(true);
-      setMostrarInicio(false);
-    }
-    if (totalPorcentaje < 30) {
-      alert(`El valor del porcentaje puede ser menor que 30`);
-    }
-  };
+  useEffect(() => {
+    dispatch(setTotalPersonas());
+    dispatch(setTotalImporte(""));
+    dispatch(setTotalPorcentaje(30));
+    dispatch(setSelectedMonth(1));
+    dispatch(setSelectedYear(new Date().getFullYear()));
+    dispatch(setShowTable(false));
+    dispatch(setMostrarInicio(true));
+    dispatch(setError(""));
+    dispatch(setSelectedDay(""));
+    dispatch(setEditIndex(-1));
+    dispatch(setCuotasStates([]));
+    dispatch(setPorcentajeReduccion(0));
+  }, [dispatch]);
 
   return (
     <div className="paymentApp">
-      <h2>Información de pagos</h2>
-
-      {mostrarInicio && ( 
-        <div>
-          <Inicio
-            totalPersonas={totalPersonas}
-            setTotalPersonas={setTotalPersonas}
-            totalImporte={totalImporte}
-            setTotalImporte={setTotalImporte}
-            totalPorcentaje={totalPorcentaje}
-            setTotalPorcentaje={setTotalPorcentaje}
-            handleAddClick={handleAddClick}
-          />
+      {!mostrarInicio && (
+        <div className='homeTextos'>
+          <h3 className="inline-text">Información de pagos</h3>
+          <span className="orange-text inline-text">  indica un máximo de 4</span>
         </div>
       )}
 
+      {mostrarInicio && ( 
+        <div>
+          <Inicio />
+        </div>
+      )}
       {showTable && (
         <div>
           <DateApp
-            totalPersonas={totalPersonas}
-            totalImporte={totalImporte}
-            selectedMonth={selectedMonth}
-            setSelectedMonth={setSelectedMonth}
-            selectedYear={selectedYear}
-            setSelectedYear={setSelectedYear}
             paymentDates={paymentDates}
             setPaymentDates={setPaymentDates}
-            setRows={setRows}
-            rows={rows}
           />
         </div>
       )}
@@ -66,13 +66,7 @@ const Home = () => {
       <div>
         {showTable && (
           <Cuotas
-            totalImporte={totalImporte}
             paymentDates={[...paymentDates]}
-            totalPersonas={totalPersonas}
-            totalPorcentaje={totalPorcentaje}
-            setTotalPorcentaje={setTotalPorcentaje}
-            rows={rows}
-            setRows={setRows}
           />
         )}
       </div>

@@ -1,75 +1,82 @@
-import React from 'react';
-
-const Inicio = ({
-  totalPersonas,
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
   setTotalPersonas,
-  totalImporte,
   setTotalImporte,
-  totalPorcentaje,
   setTotalPorcentaje,
-  handleAddClick,
-}) => {
+  setShowTable,
+  setMostrarInicio,
+  setCuotasStates,
+} from "../reducers/payment/paymentSlice";
+
+const Inicio = () => {
+  const dispatch = useDispatch();
+  const totalPersonas = useSelector((state) => state.payment.totalPersonas);
+  const totalImporte = useSelector((state) => state.payment.totalImporte);
+  const totalPorcentaje = useSelector((state) => state.payment.totalPorcentaje);
+  const cuotasStates = useSelector((state) => state.payment.cuotasStates)
+
+  useEffect(() => {
+    if (totalPorcentaje >= 30 && totalImporte !== '') {
+      const primeraCuota = (totalImporte * totalPorcentaje) / 100;
+      const nuevasCuotas = [primeraCuota, ...cuotasStates.slice(1)];
+      dispatch(setCuotasStates(nuevasCuotas));
+    }
+  }, [totalPorcentaje, cuotasStates, dispatch]);
+
+  const handleAddClick = () => {
+    if (totalPersonas !== '' && totalImporte !== '' && totalPorcentaje >= 30) {
+      dispatch(setShowTable(true));
+      dispatch(setMostrarInicio(false));
+    }
+    if (totalPorcentaje < 30) {
+      alert(`El valor del porcentaje puede ser menor que 30`);
+    }
+  };
 
   const handleInputChange = (e, setterFunction, minValue = null) => {
-    const value = parseInt(e.target.value, 10);
+    const value = e.target.value;
 
     if (!isNaN(value)) {
-      if (minValue !== null && value < minValue) {
-        // Muestra un mensaje de error si el valor es menor que el mínimo
+      if (minValue !== null && parseInt(value, 10) < minValue) {
         alert(`El valor no puede ser menor que ${minValue}`);
-        setterFunction(minValue);
       } else {
         setterFunction(value);
       }
-    } else {
-      setterFunction('');
     }
   };
 
   const handleAddDataClick = () => {
     if (totalPersonas !== '' && totalImporte !== '' && totalPorcentaje !== '') {
-      // Si se han ingresado valores en todos los campos, oculta los campos
-      handleAddClick(); // Llama a la función para continuar con la lógica deseada
+      handleAddClick(); 
     }
   };
-
-  console.log("este es el porcentaje en inicio", totalPorcentaje)
 
   return (
     <div className='containerInitialApp'>
       <div className='inicio'>
         <div>
-          <label className="label">Total de Personas:</label>
+          <label className="label"><h2>Total de Personas:</h2></label>
           <input
             className="input-number"
             type="number"
             step="1"
             value={totalPersonas}
-            onChange={(e) => handleInputChange(e, setTotalPersonas)}
+            onChange={(e) => handleInputChange(e, (value) => dispatch(setTotalPersonas(value)))}
           />
         </div>
         <div>
-          <label className="label">Importe Total:</label>
+          <label className="label"><h2>Importe Total:</h2></label>
           <input
             className="input-number"
             type="number"
             step="1"
             value={totalImporte}
-            onChange={(e) => handleInputChange(e, setTotalImporte)}
-          />
-        </div>
-        <div>
-          <label className="label">Porcentaje de Pago:</label>
-          <input
-            className="input-number"
-            type="number"
-            step="1"
-            value={totalPorcentaje}
-            onChange={(e) => setTotalPorcentaje(parseInt(e.target.value, 10))}
+            onChange={(e) => handleInputChange(e, (value) => dispatch(setTotalImporte(value)))}
           />
         </div>
         <div className='btnContainer'>
-          <button className="btnAñadir" onClick={handleAddDataClick}>Añadir Data</button>
+          <button className="btnAñadir" onClick={handleAddDataClick}>Consultar</button>
         </div>
       </div>
     </div>

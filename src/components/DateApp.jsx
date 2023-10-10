@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setSelectedMonth,
+  setSelectedYear,
+  setError,
+  setSelectedDay,
+  setEditIndex,
+} from "../reducers/payment/paymentSlice";
 import DateSelector from './DateSelector';
 
-const DateApp = ({
-  totalPersonas,
-  totalImporte,
-  selectedMonth,
-  setSelectedMonth,
-  selectedYear,
-  setSelectedYear,
-  paymentDates,
-  setPaymentDates,
-  setRows,
-  rows
-}) => {
-  const maxDateCount = 4; // Máximo de cuotas
-  const currentDate = (new Date());
-  const [error, setError] = useState('');
-  const [selectedDay, setSelectedDay] = useState('');
-  const [editIndex, setEditIndex] = useState(-1);
+const DateApp = ({ paymentDates, setPaymentDates}) => {
+  const dispatch = useDispatch();
+  const selectedDay = useSelector((state) => state.payment.selectedDay) || '01';
+const selectedMonth = useSelector((state) => state.payment.selectedMonth) || '01';
+const selectedYear = useSelector((state) => state.payment.selectedYear) || new Date().getFullYear().toString();
+  const error = useSelector((state) => state.payment.error);
+  const editIndex = useSelector((state) => state.payment.editIndex);
 
+  const maxDateCount = 4; // Máximo de cuotas
+  const currentDate = new Date();
+
+  
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -31,25 +33,8 @@ const DateApp = ({
     setterFunction(e.target.value);
   };
 
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month, 0).getDate();
-  };
-
-  const calculateCuotas = (dates) => {
-    const totalCuotas = totalImporte / dates.length;
-    return Array.from({ length: totalPersonas }, () =>
-      Array.from({ length: dates.length }, () => totalCuotas)
-    );
-  };
-
-  // useEffect(() => {
-  //   if (totalImporte > 0 && paymentDates.size > 0) {
-  //     const initialCuotas = calculateCuotas([...paymentDates]);
-  //     setCuotasStates(initialCuotas);
-  //   }
-  // }, [totalImporte, paymentDates]);
-
   const handleValidateDateClick = () => {
+    console.log('Botón Agregar Fecha presionado');
     if (selectedDay && selectedMonth && selectedYear) {
       const selectedDate = new Date(
         parseInt(selectedYear, 10),
@@ -63,29 +48,43 @@ const DateApp = ({
           updatedDates[editIndex] = formatDate(selectedDate);
 
           setPaymentDates(new Set(updatedDates));
-          setEditIndex(-1);
-        } else if (
-          paymentDates.size < maxDateCount &&
-          ![...paymentDates].includes(formatDate(selectedDate))
-        ) {
-          setPaymentDates(new Set([...paymentDates, formatDate(selectedDate)]));
-          setSelectedDay('');
-          setSelectedMonth('');
-          setSelectedYear('');
-          setError('');
+          dispatch(setEditIndex(-1));
         } else {
-          setError('Has alcanzado el límite máximo de cuotas o la fecha ya existe.');
-        }
+          dispatch(setError('')); 
 
-        
-        setEditIndex(-1);
+          for (const date of paymentDates) {
+            const existingDate = new Date(date);
+
+            if (
+              existingDate.getDate() === selectedDate.getDate() &&
+              existingDate.getMonth() === selectedDate.getMonth() &&
+              existingDate.getFullYear() === selectedDate.getFullYear()
+            ) {
+              dispatch(setError('La fecha ya existe.'));
+              return; 
+            }
+          }
+
+          if (paymentDates.size < maxDateCount) {
+            setPaymentDates(new Set([...paymentDates, formatDate(selectedDate)]));
+          } else {
+            dispatch(setError('Has alcanzado el límite máximo de cuotas.'));
+          }
+        }
       } else {
-        setError('La fecha seleccionada es anterior a la fecha actual.');
+        dispatch(setError('La fecha seleccionada es anterior a la fecha actual.'));
       }
     } else {
-      setError('Por favor, selecciona una fecha válida.');
+      dispatch(setError('Por favor, selecciona una fecha válida.'));
     }
   };
+
+  useEffect(() => {
+    dispatch(setSelectedDay(''));
+    dispatch(setSelectedMonth(''));
+    dispatch(setSelectedYear(''));
+    dispatch(setError(''));
+  }, [paymentDates]);
 
   const handleReviewDatesClick = () => {
     let hasError = false;
@@ -94,17 +93,16 @@ const DateApp = ({
       const selectedDate = new Date(date);
 
       if (selectedDate < currentDate) {
-        setError('Al menos una de las fechas es anterior a la fecha actual.');
+        dispatch(setError('Al menos una de las fechas es anterior a la fecha actual.'));
         hasError = true;
         break;
       }
     }
 
     if (!hasError) {
-      setError('');
+      dispatch(setError(''));
     }
   };
-
 
   const handleEditDateChange = (e, date, index, field) => {
     const updatedDates = [...paymentDates];
@@ -114,7 +112,7 @@ const DateApp = ({
       parseInt(dateParts[1], 10) - 1,
       parseInt(dateParts[2], 10)
     );
-  
+
     if (field === 'day') {
       newDate.setDate(parseInt(e.target.value, 10));
     } else if (field === 'month') {
@@ -122,32 +120,30 @@ const DateApp = ({
     } else if (field === 'year') {
       newDate.setFullYear(parseInt(e.target.value, 10));
     }
-  
+
     updatedDates[index] = formatDate(newDate);
     setPaymentDates(new Set(updatedDates));
   };
-  
 
   return (
     <div>
       <DateSelector
-        selectedDay={selectedDay}
-        selectedMonth={selectedMonth}
-        selectedYear={selectedYear}
-        onDayChange={(e) => handleInputChange(e, setSelectedDay)}
-        onMonthChange={(e) => handleInputChange(e, setSelectedMonth)}
-        onYearChange={(e) => handleInputChange(e, setSelectedYear)}
+        onDayChange={(e) => handleInputChange(e, (value) => dispatch(setSelectedDay(value)))}
+        onMonthChange={(e) => handleInputChange(e, (value) => dispatch(setSelectedMonth(value)))}
+        onYearChange={(e) => handleInputChange(e, (value) => dispatch(setSelectedYear(value)))}
       />
       <button className="btnDate" onClick={handleValidateDateClick}>
-        {editIndex === -1 ? 'Agregar Fecha' : 'Editar Fecha'}
+        {"Añadir Fecha"}
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
-        <h3>Fechas de Pago:</h3>
-        {paymentDates.size > 0 ? (
+        <h4>Fechas de Pago:</h4>
+        {paymentDates.size > 0 && (
           <ul>
             {[...paymentDates].sort().map((date, index) => (
               <li key={index}>
+                <h4>Pago {index + 1}</h4>
+                
                 <DateSelector
                   selectedDay={date.split('-')[2]}
                   selectedMonth={date.split('-')[1]}
@@ -162,8 +158,6 @@ const DateApp = ({
               Revisar Fechas
             </button>
           </ul>
-        ) : (
-          <p>No hay fechas de pago.</p>
         )}
       </div>
     </div>
@@ -171,4 +165,5 @@ const DateApp = ({
 };
 
 export default DateApp;
+
 

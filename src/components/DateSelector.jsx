@@ -1,6 +1,7 @@
 import React from 'react';
 
-const DateSelector = ({ selectedDay, selectedMonth, selectedYear, onDayChange, onMonthChange, onYearChange }) => {
+
+const DateSelector = ({ onDayChange, onMonthChange, onYearChange, selectedDay, selectedMonth, selectedYear }) => {
   const generateOptions = (count, startValue) => {
     return Array.from({ length: count }, (_, i) => startValue + i);
   };
