@@ -182,6 +182,74 @@ h4 {
 }
 
 
+/* resolucion telefono */
+
+@media (max-width: 768px) {
+  .inicio {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+
+  .input-number {
+    width: 100%;
+  }
+
+  .btnAñadir {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .homeTextos {
+    text-align: center;
+  }
+  
+  .date-selector-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .date-select {
+    width: 100%;
+  }
+
+
+  .cuotas-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .cuotas-table thead {
+    display: none;
+  }
+
+  .cuotas-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .cuotas-table tr {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cuotas-table td {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .btnDate {
+    width: 100%; 
+    margin-top: 10px;
+  }
+}
 
 
 

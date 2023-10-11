@@ -11,11 +11,12 @@ import DateSelector from './DateSelector';
 
 const DateApp = ({ paymentDates, setPaymentDates}) => {
   const dispatch = useDispatch();
-  const selectedDay = useSelector((state) => state.payment.selectedDay) || '01';
-const selectedMonth = useSelector((state) => state.payment.selectedMonth) || '01';
-const selectedYear = useSelector((state) => state.payment.selectedYear) || new Date().getFullYear().toString();
+  const selectedDay = useSelector((state) => state.payment.selectedDay);
+  const selectedMonth = useSelector((state) => state.payment.selectedMonth);
+  const selectedYear = useSelector((state) => state.payment.selectedYear);
   const error = useSelector((state) => state.payment.error);
   const editIndex = useSelector((state) => state.payment.editIndex);
+  const [resetFields, setResetFields] = useState(false);
 
   const maxDateCount = 4; // Máximo de cuotas
   const currentDate = new Date();
@@ -34,45 +35,43 @@ const selectedYear = useSelector((state) => state.payment.selectedYear) || new D
   };
 
   const handleValidateDateClick = () => {
-    console.log('Botón Agregar Fecha presionado');
     if (selectedDay && selectedMonth && selectedYear) {
-      const selectedDate = new Date(
-        parseInt(selectedYear, 10),
+      const selectedYearInt = parseInt(selectedYear, 10); // Convertir el año a un número
+      const newDate = new Date(
+        selectedYearInt,
         parseInt(selectedMonth, 10) - 1,
         parseInt(selectedDay, 10)
       );
-
-      if (selectedDate >= currentDate) {
-        if (editIndex !== -1) {
-          const updatedDates = [...paymentDates];
-          updatedDates[editIndex] = formatDate(selectedDate);
-
-          setPaymentDates(new Set(updatedDates));
-          dispatch(setEditIndex(-1));
-        } else {
-          dispatch(setError('')); 
-
-          for (const date of paymentDates) {
-            const existingDate = new Date(date);
-
-            if (
-              existingDate.getDate() === selectedDate.getDate() &&
-              existingDate.getMonth() === selectedDate.getMonth() &&
-              existingDate.getFullYear() === selectedDate.getFullYear()
-            ) {
-              dispatch(setError('La fecha ya existe.'));
-              return; 
-            }
-          }
-
-          if (paymentDates.size < maxDateCount) {
-            setPaymentDates(new Set([...paymentDates, formatDate(selectedDate)]));
-          } else {
-            dispatch(setError('Has alcanzado el límite máximo de cuotas.'));
+  
+      if (newDate < currentDate) {
+        dispatch(setError('Fecha incorrecta. Es anterior a la fecha actual.'));
+        return;
+      }
+    
+      if (editIndex !== -1) {
+        const updatedDates = [...paymentDates];
+        updatedDates[editIndex] = formatDate(newDate);
+    
+        setPaymentDates(new Set(updatedDates));
+        dispatch(setEditIndex(-1));
+        dispatch(setError(''));
+      } else {
+        dispatch(setError(''));
+    
+        for (const date of paymentDates) {
+          const existingDate = new Date(date);
+    
+          if (existingDate.getTime() === newDate.getTime()) {
+            dispatch(setError('La fecha ya existe.'));
+            return;
           }
         }
-      } else {
-        dispatch(setError('La fecha seleccionada es anterior a la fecha actual.'));
+    
+        if (paymentDates.size < maxDateCount) {
+          setPaymentDates(new Set([...paymentDates, formatDate(newDate)]));
+        } else {
+          dispatch(setError('Has alcanzado el límite máximo de cuotas.'));
+        }
       }
     } else {
       dispatch(setError('Por favor, selecciona una fecha válida.'));
@@ -80,11 +79,13 @@ const selectedYear = useSelector((state) => state.payment.selectedYear) || new D
   };
 
   useEffect(() => {
-    dispatch(setSelectedDay(''));
-    dispatch(setSelectedMonth(''));
-    dispatch(setSelectedYear(''));
-    dispatch(setError(''));
-  }, [paymentDates]);
+    if (resetFields) {
+      dispatch(setSelectedDay(''));
+      dispatch(setSelectedMonth(''));
+      dispatch(setSelectedYear(''));
+      setResetFields(false);
+    }
+  }, [resetFields, dispatch, paymentDates]);
 
   const handleReviewDatesClick = () => {
     let hasError = false;
