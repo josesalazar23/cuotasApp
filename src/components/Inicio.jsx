@@ -36,10 +36,12 @@ const Inicio = () => {
 
   const handleInputChange = (e, setterFunction, minValue = null) => {
     const value = e.target.value;
-
+  
     if (!isNaN(value)) {
       if (minValue !== null && parseInt(value, 10) < minValue) {
         alert(`El valor no puede ser menor que ${minValue}`);
+      } else if (parseInt(value, 10) < 0) {
+        alert("El valor no puede ser negativo");
       } else {
         setterFunction(value);
       }
@@ -56,7 +58,7 @@ const Inicio = () => {
     <div className='containerInitialApp'>
       <div className='inicio'>
         <div>
-          <label className="label"><h2>Total de Personas:</h2></label>
+          <label className="label"><h2>Personas:</h2></label>
           <input
             className="input-number"
             type="number"

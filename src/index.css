@@ -121,7 +121,6 @@ h4 {
   font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 5%;
 }
 
 /* Styles in cuotas */
@@ -224,7 +223,8 @@ h4 {
   }
 
   .cuotas-table thead {
-    display: none;
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px); /* Esconder el encabezado fuera de la vista */
   }
 
   .cuotas-table tbody {
@@ -253,3 +253,69 @@ h4 {
 
 
 
+@media (max-width: 900px) {
+  .inicio {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+
+  .input-number {
+    width: 100%;
+  }
+
+  .btnAñadir {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .homeTextos {
+    text-align: center;
+  }
+  
+  .date-selector-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .date-select {
+    width: 100%;
+  }
+
+
+  .cuotas-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .cuotas-table thead {
+    display: none;
+  }
+
+  .cuotas-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .cuotas-table tr {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cuotas-table td {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .btnDate {
+    width: 100%; 
+    margin-top: 10px;
+  }
+}

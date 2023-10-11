@@ -138,7 +138,7 @@ const DateApp = ({ paymentDates, setPaymentDates}) => {
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
-        <h4>Fechas de Pago:</h4>
+        <h3>Fechas de Pago:</h3>
         {paymentDates.size > 0 && (
           <ul>
             {[...paymentDates].sort().map((date, index) => (
