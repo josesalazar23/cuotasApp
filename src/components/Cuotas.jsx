@@ -93,7 +93,6 @@ const Cuotas = ({
       setRenderer(renderer + 1);
     }
   };
-
   const sortedPaymentDates = [...paymentDates].sort((a, b) => new Date(a) - new Date(b));
 
   return (
