@@ -8,7 +8,6 @@ import {
   setEditIndex,
 } from "../reducers/payment/paymentSlice";
 import DateSelector from './DateSelector';
-import { GoTrash } from 'react-icons/Go';
 
 const DateApp = ({ paymentDates, setPaymentDates }) => {
   const dispatch = useDispatch();
@@ -151,7 +150,7 @@ const DateApp = ({ paymentDates, setPaymentDates }) => {
                   <button onClick={handleValidateDateClick}>
                     {"Añadir Fecha"}
                   </button>
-                  <button onClick={() => handleDeleteDateClick(index)}> <GoTrash /></button>
+                  <button onClick={() => handleDeleteDateClick(index)}> Eliminar</button>
                 </div>
               </li>
             ))}
