@@ -45,40 +45,32 @@ const Home = () => {
       {!mostrarInicio && (
         <div className='homeTextos'>
           <h3 className="inline-text">Información de pagos</h3>
-          <span className="orange-text inline-text">  indica un máximo de 4</span>
         </div>
       )}
 
-      {mostrarInicio && ( 
+      {/* {mostrarInicio && ( 
         <div>
           <Inicio />
         </div>
-      )}
-      {showTable && (
-        <div>
+      )} */}
+      <div>
           <DateApp
             paymentDates={paymentDates}
             setPaymentDates={setPaymentDates}
           />
-        </div>
-      )}
+      </div>
 
       <div>
-        {showTable && (
-          <Cuotas
-            paymentDates={[...paymentDates]}
-          />
-        )}
+        
+        <Cuotas
+          paymentDates={[...paymentDates]}
+        />
+        
       </div>
+      
       <div></div>
     </div>
   );
 };
 
 export default Home;
-
-
-
-
-
-

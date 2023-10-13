@@ -4,13 +4,12 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: rgb(28, 25, 24);
-  background: linear-gradient(
-    300deg,
-    #4c453beb 100%
-  );
- 
+  background: rgba(255, 255, 255, 0.552);
 }
+
+/* rgba(0,0,0,.125)
+#007D88
+#20c997 */
 
 ul {
   list-style-type: none;
@@ -123,28 +122,23 @@ h4 {
   border-radius: 5px;
 }
 
-/* Styles in cuotas */
-.cuotas-table {
-  border-collapse: collapse;
-  width: 100%;
+.fechaAgregada {
+  display: flex;
+  gap: 10px;
 }
 
-.cuotas-table th,
-.cuotas-table td {
-  padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
+
+
+
+
+
+
+/* ESTILOS PARA LA TABLA */
+
 
 .cuotas-table th {
   font-size: 12px;
   color: white;
-}
-
-.cuotas-table {
-  width: 80%;
-  border-collapse: collapse;
-  margin-right: 20px;
 }
 
 .cuotas-table th,
@@ -155,19 +149,16 @@ h4 {
 .cuotas-table input {
   width: 50%;
   text-align: center;
+  border-color: transparent;
 }
 
-.input-personas {
-  width: 50px !important;
-}
 
-/* estilos para la tabla */
 .cuotas-table {
   background-color: transparent;
   border-collapse: collapse;
-  width: 100%;
   margin-bottom: 10px;
   margin-top: 10px;
+  overflow-x: auto;
 }
 
 .cuotas-table th, .cuotas-table td {
@@ -180,10 +171,29 @@ h4 {
   background-color: rgba(14, 14, 14, 0.096);
 }
 
+.td-personas {
+  display: flex;
+  width: 100%;
+  
+}
+
+.table-container {
+  overflow-x: auto; /* Agrega desplazamiento horizontal a este contenedor */
+  max-width: 100%; /* Evita que el contenedor se extienda más allá del ancho de la ventana */
+}
+
+/* CSS para las celdas de datos */
+.scrollable-table td {
+  min-width: 180px; /* Ancho mínimo para las celdas de datos */
+}
+
+
+/* FIN DE ESTILOS PARA LA TABLA */
+
 
 /* resolucion telefono */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .inicio {
     flex-direction: column;
     gap: 20px;
@@ -225,7 +235,7 @@ h4 {
   .cuotas-table thead {
     position: absolute;
     clip: rect(1px, 1px, 1px, 1px); /* Esconder el encabezado fuera de la vista */
-  }
+  /* }
 
   .cuotas-table tbody {
     display: block;
@@ -249,10 +259,10 @@ h4 {
     width: 100%; 
     margin-top: 10px;
   }
-}
+} */
 
 
-
+/* 
 @media (max-width: 900px) {
   .inicio {
     flex-direction: column;
@@ -318,4 +328,4 @@ h4 {
     width: 100%; 
     margin-top: 10px;
   }
-}
+} */
