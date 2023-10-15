@@ -1,18 +1,21 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import  store  from './store/store';
-import Home from './components/Home'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadInitialData } from './reducers/payment/paymentSlice';
+import Home from './components/Home';
+
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadInitialData()); // Carga la primera vez utilizando Redux 
+  }, [dispatch]);
 
 
   return (
-    <Provider store={store}>
-      
-        <Home />
-      
-    </Provider>
-  )
+    
+      <Home />
+    
+  );
 }
 
-export default App
+export default App;

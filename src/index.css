@@ -1,15 +1,12 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+:root { 
+  font-family: DM Sans, sans-serif; 
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background: rgba(255, 255, 255, 0.552);
+  color: rgba(99, 99, 99, 0.82);
+  background: rgba(255, 255, 255, 0.825);
 }
 
-/* rgba(0,0,0,.125)
-#007D88
-#20c997 */
 
 ul {
   list-style-type: none;
@@ -24,7 +21,6 @@ li {
 
 p {
   margin: 0;
-  font-size: 14px;
 }
 
 h2 {
@@ -33,6 +29,7 @@ h2 {
 
 h4 {
   margin: 10px;
+  font-size: 20px;
 }
 
 
@@ -41,14 +38,11 @@ h4 {
 .paymentApp {
   display: flex;
   flex-direction: column;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 30px;
+  padding: 0px;
   text-align: start;
-  width: 80%;
-  background-color: #3d3b3bc2;
-  border: 1px solid #ec6521;
+  width: 70%;
   border-radius: 20px;
-  box-shadow: 0px 0px 10px #ec6521;
 }
 
 .inicio {
@@ -60,7 +54,6 @@ h4 {
 }
 
 .label {
-  font-size: 12px;
   display: block;
 }
 
@@ -68,29 +61,15 @@ h4 {
   text-align: center;
   width: 40%;
   height: 40px;
-  font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.btnAñadir {
-  width: 150px;
-  height: 40px;
-  font-size: 12px;
-  background-color: #ec6521;
-  margin-top: 25px;
-  border-radius: 10px;
-}
 
 .homeTextos {
   margin-bottom: 10px;
 }
 
-.orange-text {
-  color:  #ec6521;
-  font-size: 15px;
-  font-weight: 700;
-}
 
 .inline-text {
   display: inline;
@@ -100,13 +79,14 @@ h4 {
 
 /* Styles in dateApp */
 .btnDate {
-  background-color: #ec6521;
-  width: 10%;
+  background-color: transparent;
+  border: transparent;
   height: 30px;
   border-radius: 10px;
   margin-top: 20px;
   font-weight: 900;
-  font-size: 12px;
+  font-size: 18px;
+  color: #007D88;
 }
 
 /* Styles in dateSelector */
@@ -117,9 +97,18 @@ h4 {
 
 .date-select {
   padding: 10px;
-  font-size: 12px;
+  font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: white;
+  color: #007D88;
+}
+
+.AddDate {
+  background-color: transparent;
+  border: transparent;
+  color: #007D88;
+  font-weight: 700;
 }
 
 .fechaAgregada {
@@ -127,18 +116,12 @@ h4 {
   gap: 10px;
 }
 
-
-
-
-
-
-
 /* ESTILOS PARA LA TABLA */
 
 
 .cuotas-table th {
-  font-size: 12px;
-  color: white;
+  font-size: 17px;
+  color: #007D88;
 }
 
 .cuotas-table th,
@@ -147,28 +130,52 @@ h4 {
 }
 
 .cuotas-table input {
-  width: 50%;
+  width: 100px;
+  min-width: 50%;
+  height: 40px;
+  font-family: DM Sans, sans-serif;
   text-align: center;
   border-color: transparent;
+  background-color: white;
+  color: #20c997;
+  font-weight:bold;
+  font-size: 17px;
 }
 
 
 .cuotas-table {
   background-color: transparent;
   border-collapse: collapse;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 50px;
+  margin-top: 50px;
   overflow-x: auto;
 }
 
 .cuotas-table th, .cuotas-table td {
-  background-color: rgba(14, 14, 14, 0.234);
   border: 1px solid transparent;
-  padding: 10px;
 }
 
+.editable-total {
+  padding: 0px 0px 0px 100px;
+  text-align: center;
+  
+}
+
+.th-total{
+  display: flex;
+  justify-content: center;
+  margin-left: 100px !important;
+}
+
+
 .cuotas-table tbody tr:nth-child(odd) {
-  background-color: rgba(14, 14, 14, 0.096);
+  background-color: transparent;
+  
+}
+
+.people-table {
+  width: 20% !important;
+  margin-right: 1px;
 }
 
 .td-personas {
@@ -178,13 +185,23 @@ h4 {
 }
 
 .table-container {
-  overflow-x: auto; /* Agrega desplazamiento horizontal a este contenedor */
-  max-width: 100%; /* Evita que el contenedor se extienda más allá del ancho de la ventana */
+  overflow-x: auto; /* Agrega desplazamiento horizontal */
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-/* CSS para las celdas de datos */
+
 .scrollable-table td {
-  min-width: 180px; /* Ancho mínimo para las celdas de datos */
+  min-width: 150px; 
+  
+}
+
+.cuotas-table th,
+.cuotas-table td {
+  text-align: center;
+  padding: 5px; 
 }
 
 
@@ -193,139 +210,104 @@ h4 {
 
 /* resolucion telefono */
 
-/* @media (max-width: 768px) {
-  .inicio {
-    flex-direction: column;
-    gap: 20px;
-  }
 
-  .label {
-    font-size: 16px;
-  }
-
-  .input-number {
-    width: 100%;
-  }
-
-  .btnAñadir {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .homeTextos {
-    text-align: center;
-  }
-  
-  .date-selector-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .date-select {
-    width: 100%;
-  }
-
-
-  .cuotas-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .cuotas-table thead {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px); /* Esconder el encabezado fuera de la vista */
-  /* }
-
-  .cuotas-table tbody {
-    display: block;
-    width: 100%;
-  }
-
-  .cuotas-table tr {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cuotas-table td {
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
-  }
-
-  .btnDate {
-    width: 100%; 
-    margin-top: 10px;
-  }
-} */
-
-
-/* 
 @media (max-width: 900px) {
-  .inicio {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .label {
-    font-size: 16px;
-  }
-
-  .input-number {
-    width: 100%;
-  }
-
-  .btnAñadir {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .homeTextos {
-    text-align: center;
-  }
   
   .date-selector-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .date-select {
-    width: 100%;
+    flex-direction: row;
+    gap: 5px;
   }
 
+  .paymentApp {
+    width: 100%;
+  }
 
   .cuotas-table {
-    display: block;
+    display: table;
     width: 100%;
-    overflow-x: auto;
-  }
-
-  .cuotas-table thead {
-    display: none;
-  }
-
-  .cuotas-table tbody {
-    display: block;
-    width: 100%;
-  }
-
-  .cuotas-table tr {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   .cuotas-table td {
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
+    padding-bottom: 10px;
   }
 
-  .btnDate {
-    width: 100%; 
-    margin-top: 10px;
+  .cuotas-table th {
+    font-size: 14px;
+    color: #007D88;
   }
-} */
+
+  .cuotas-table th,
+  .cuotas-table td {
+    text-align: center;
+    border: 1px solid transparent;
+    padding-left: 5px;
+  }
+
+  .editable-total {
+    padding: 0px;
+    text-align: center;
+  }
+}
+
+
+
+
+@media (max-width: 900px) {
+  
+  .date-selector-container {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .paymentApp {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    text-align: start;
+    width: 100%;
+    border-radius: 20px;
+  }
+  
+
+
+
+  .cuotas-table td {
+    padding-bottom: 10px;
+  }
+
+  .cuotas-table th {
+    font-size: 14px;
+    color: #007D88;
+  }
+
+  
+  .cuotas-table th, .cuotas-table td {
+    border: 1px solid transparent;
+  }
+  
+  .editable-total {
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    
+  }
+  
+  .cuotas-table th,
+  .cuotas-table td {
+    text-align: center;
+  }
+
+
+  
+  .cuotas-table th,
+  .cuotas-table td {
+    text-align: center;
+    padding-left: 5px; 
+  }
+  
+  
+
+
+
+
+}

@@ -1,0 +1,21 @@
+{
+    "installmentsDates": [
+        {
+            "position": 1,
+            "day": 10,
+            "month": 10,
+            "year": 1991,
+            "fullDate": "2024-01-02"
+        }
+    ],
+    "tableRows": 
+    [
+        {
+            "position": 1,
+            "peopleFrom": 50,
+            "peopleTo": 100,
+            "totalCost": 50.50,
+            "values": [100]
+        }
+    ]
+}
